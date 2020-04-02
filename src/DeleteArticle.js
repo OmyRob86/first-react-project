@@ -31,7 +31,6 @@ const DeleteArticle = () => {
                         name="id"
                         onChange={handleChange}
                         value={id}
-                        placeholder="id de l'Article à supprimer"
                     />
                 </Form.Group>
                 <Button type="submit" >Supprimer l'Article</Button>
