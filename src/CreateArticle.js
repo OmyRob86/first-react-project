@@ -2,17 +2,40 @@ import React, { useState } from 'react';
 
 const CreateArticle = () => {
     const [ title, setTitle ] = useState("");
+    const [ content, setContent ] = useState("");
+    const [ author, setAuthor ] = useState("");
 
     const handleSubmit = (event) => {
         event.preventDefault();
         console.log("titre : ", title);
+        console.log("content : ", content);
+        console.log("author : ", author);
     }
 
     const handleChange = (event) => {
         console.log("target name : ", event.target.name);
         console.log("target value : ", event.target.value);
 
-        setTitle(event.target.value.substring(0, 10));
+        /*if (event.target.name === "title") {
+            setTitle(event.target.value);
+        } else if (event.target.name === "content") {
+            setContent(event.target.value);
+        } else {
+            setAuthor(event.target.value);
+        }*/
+
+        switch(event.target.name) {
+            case "title":
+                setTitle(event.target.value);
+                break;
+            case "content":
+                setContent(event.target.value);
+                break;
+            case "author":
+                setAuthor(event.target.value);
+                break;
+            // no default
+        }
     }
 
     return (
@@ -26,12 +49,16 @@ const CreateArticle = () => {
             />
             <textarea
                 name="content"
+                onChange={handleChange}
+                value={content}
                 placeholder="contenu de l'article"
             >
             </textarea>
             <input
                 type="numner"
                 name="author"
+                onChange={handleChange}
+                value={author}
                 placeholder="id de l'auteur"
             />
             <button type="submit">Creér l'article</button>
