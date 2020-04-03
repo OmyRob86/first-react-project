@@ -4,8 +4,8 @@ import {
   Switch,
   Route,
 } from 'react-router-dom';
-import { Link } from 'react-router-dom';
-import Nav from 'react-bootstrap/Nav';
+
+import Navigation from './components/Navigation';
 
 import Home          from './pages/Home';
 import CreateArticle from './pages/CreateArticle';
@@ -15,23 +15,7 @@ import NotFound      from './pages/NotFound';
 const App = () => {
   return (
     <Router>
-      <Nav>
-        <Nav.Item>
-          <Nav.Link as={Link} to="/">
-            Accueil
-          </Nav.Link>
-        </Nav.Item>
-        <Nav.Item>
-          <Nav.Link as={Link} to="/articles/create">
-            Créer un artcile
-          </Nav.Link>
-        </Nav.Item>
-        <Nav.Item>
-          <Nav.Link as={Link} to="/artciles/delete">
-            Supprimer un artcile
-          </Nav.Link>
-        </Nav.Item>
-      </Nav>
+      <Navigation />
       <Switch>
         <Route exact path="/"          component={Home} />
         <Route path="/articles/create" component={CreateArticle} />
