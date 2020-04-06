@@ -7,10 +7,13 @@ import {
 
 import Navigation from './components/Navigation';
 
-import Home          from './pages/Home';
-import CreateArticle from './pages/CreateArticle';
-import DeleteArticle from './pages/DeleteArticle';
-import NotFound      from './pages/NotFound';
+import Home           from './pages/Home';
+import CreateArticle  from './pages/CreateArticle';
+import DeleteArticle  from './pages/DeleteArticle';
+import CreateComments from './pages/CreateComments';
+import DeleteComments from './pages/DeleteComments';
+import NotFound       from './pages/NotFound';
+
 
 const App = () => {
   return (
@@ -20,6 +23,8 @@ const App = () => {
         <Route exact path="/"          component={Home} />
         <Route path="/articles/create" component={CreateArticle} />
         <Route path="/articles/delete" component={DeleteArticle} />
+        <Route path="/comments/create" component={CreateComments} />
+        <Route path="/comments/delete" component={DeleteComments} />
         <Route path="*"                component={NotFound} />
       </Switch>
     </Router>
