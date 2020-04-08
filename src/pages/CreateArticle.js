@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import        { toast }    from 'react-toastify';
 
 import Container from 'react-bootstrap/Container';
 import Form      from 'react-bootstrap/Form';
@@ -27,15 +28,24 @@ const CreateArticle = () => {
         .then((result) => {
             return result.json();
         })
-        .then(({ status }) => {
+        .then(({ status, extra }) => {
             if (status === "OK") {
-                set.Title("");
-                set.Content("");
-                set.setAuthor("");
+                setTitle("");
+                setContent("");
+                setAuthor("");
+                toast.success("L'article à bien été ajouté");
+            } else {
+                toast.error(
+                    <div>
+                        Oh Oh... Nous avons une erreur !<br />
+                        {extra}
+                    </div>
+                );
             }
             console.log(status);
         })
         .catch((error) => {
+            toast.error("Oh Oh... Nous avons une erreur !");
             console.log(error);
         });
     };
