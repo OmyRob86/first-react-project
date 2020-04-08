@@ -28,6 +28,11 @@ const CreateArticle = () => {
             return result.json();
         })
         .then(({ status }) => {
+            if (status === "OK") {
+                set.Title("");
+                set.Content("");
+                set.setAuthor("");
+            }
             console.log(status);
         })
         .catch((error) => {
