@@ -11,10 +11,10 @@ const DeleteComment = () => {
     const handleSubmit = (event) => {
         event.preventDefault();
 
-            fetch('http//localhost:3001/api/comments/delete', {
+            fetch('http://localhost:3001/api/comments/delete', {
                 method: "POST",
                 headers: {
-                    'Content-Type': 'appication/json',
+                    'Content-Type': 'application/json',
                     'Accept': 'application/json',
                 },
                 body: JSON.stringify({
