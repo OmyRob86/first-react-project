@@ -5,10 +5,10 @@ import Container from 'react-bootstrap/Container';
 import Form      from 'react-bootstrap/Form';
 import Button    from 'react-bootstrap/Button';
 
-const CreateComments = () => {
+const CreateComment = () => {
     const [ content,   setContent   ] = useState("");
     const [ author,    setAuthor    ] = useState("");
-    const [ articleId, setArticleId ] = useState("");
+    const [ articles_id, setArticles_id ] = useState("");
 
     const handleSubmit = (event) => {
         event.preventDefault();
@@ -22,7 +22,7 @@ const CreateComments = () => {
             body: JSON.stringify({
                 content,
                 author,
-                articleId,
+                articles_id,
             }),
         })
         .then((result) => {
@@ -32,7 +32,7 @@ const CreateComments = () => {
             if (status === "OK") {
                 setContent("");
                 setAuthor("");
-                setArticleId("");
+                setArticles_id("");
                 toast.success("Le commentaire viens d'être publié");
             } else {
                 toast.error(
@@ -51,8 +51,6 @@ const CreateComments = () => {
     };
 
     const handleChange = (event) => {
-        console.log("target name : ", event.target.name);
-        console.log("target value : ", event.target.value);
 
         switch(event.target.name) {
             case "content":
@@ -61,8 +59,8 @@ const CreateComments = () => {
             case "author":
                 setAuthor(event.target.value);
                 break;
-            case "articleId":
-                setArticleId(event.target.value);
+            case "articles_id":
+                setArticles_id(event.target.value);
                 break;
             // no default
         }
@@ -89,13 +87,13 @@ const CreateComments = () => {
                         value={author}
                     />
                 </Form.Group>
-                <Form.Group controlId="comment.articleId" >
+                <Form.Group controlId="comment.articles_id" >
                     <Form.Label>Id de l'Article</Form.Label>
                     <Form.Control
                         type="number"
-                        name="articleId"
+                        name="articles_id"
                         onChange={handleChange}
-                        value={articleId}
+                        value={articles_id}
                     />
                 </Form.Group>
                 <Button variant="primary" type="submit">Publier</Button>
@@ -104,4 +102,4 @@ const CreateComments = () => {
     )
 };
 
-export default CreateComments;
+export default CreateComment;

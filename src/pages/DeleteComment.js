@@ -5,7 +5,7 @@ import Container from 'react-bootstrap/Container';
 import Form      from 'react-bootstrap/Form';
 import Button    from 'react-bootstrap/Button';
 
-const DeleteComments = () => {
+const DeleteComment = () => {
     const [ id, setId ] = useState("");
 
     const handleSubmit = (event) => {
@@ -70,4 +70,4 @@ const DeleteComments = () => {
     )
 };
 
-export default DeleteComments;
+export default DeleteComment;

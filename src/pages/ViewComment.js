@@ -10,7 +10,7 @@ const ViewComment = ({ match }) => {
     const [ comment, setComment ] = useState({});
 
     useEffect(() => {
-        fetch('http://localhost:3001/api/comment?article_id=' + article_id)
+        fetch('http://localhost:3001/api/comment?id=' + id)
             .then((result) => {
                return result.json();
             })
