@@ -12,42 +12,6 @@ const CreateComments = () => {
 
     const handleSubmit = (event) => {
         event.preventDefault();
-
-        fetch('http://localhost:3001/api/articles/create', {
-            method: "POST",
-            headers: {
-                'Content-Type': 'application/json',
-                'Accept': 'application/json',
-            },
-            body: JSON.stringify({
-                content,
-                author,
-                articleId,
-            }),
-        })
-        .then((result) => {
-            return result.json();
-        })
-        .then(({ status, extra }) => {
-            if (status === "OK") {
-                setContent("");
-                setAuthor("");
-                setArticleId("");
-                toast.success("Le commentaire à bien été créé");
-            } else {
-                toast.error(
-                    <div>
-                        Oh Oh... Nous avons une erreur !<br />
-                        {extra}
-                    </div>
-                );
-            }
-            console.log(status);
-        })
-        .catch((error) => {
-            toast.error("Oh Oh... Nous avons une erreur !");
-            console.log(error);
-        });
     };
 
     const handleChange = (event) => {
@@ -61,7 +25,7 @@ const CreateComments = () => {
             case "author":
                 setAuthor(event.target.value);
                 break;
-            case "artilceId":
+            case "articleId":
                 setArticleId(event.target.value);
                 break;
             // no default
