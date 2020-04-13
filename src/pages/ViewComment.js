@@ -24,7 +24,7 @@ const ViewComment = ({ match }) => {
             .catch((error) => {
                 console.log(error);
             })
-    }, [ id ]);
+    }, [id]);
 
     return (
         <Container>
