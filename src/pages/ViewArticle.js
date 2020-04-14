@@ -1,13 +1,14 @@
 import React, { useState, useEffect } from 'react';
 import { formatDate } from '../utils/date';
-import ViewComments from '../pages/ViewComments'
+import { toast } from 'react-toastify';
 
 import Container from 'react-bootstrap/Container';
-import { toast } from 'react-toastify';
-import CardDeck from 'react-bootstrap/CardDeck';
+import ViewComments from '../components/ViewComments';
+
 
 const ViewArticle = ({ match }) => {
     const { id } = match.params;
+
     const [ article, setArticle ] = useState({});
 
     useEffect(() => {
@@ -23,9 +24,11 @@ const ViewArticle = ({ match }) => {
                 }
             })
             .catch((error) => {
+                toast.error("Oups nous avons un probléme !");
                 console.log(error);
             })
     }, [ id ]);
+
 
     return(
         <Container>
@@ -34,12 +37,10 @@ const ViewArticle = ({ match }) => {
                 {article.content}
             </p>
             <p>
-                posté le {formatDate(new Date())}<br/>
+                posté le {formatDate(article.created_at)}<br/>
                 par {article.authorFirstname} {article.authorLastname}
             </p>
-           <CardDeck>
-               <ViewComments articles_id = { id } />
-           </CardDeck>
+            <ViewComments article_id = {id} />
         </Container>
     );
 };
