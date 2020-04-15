@@ -98,7 +98,7 @@ const CreateArticle = () => {
                 <Form.Group controlId="article.author" >
                     <Form.Label>Id de l'Auteur</Form.Label>
                     <Form.Control
-                        type="numner"
+                        type="number"
                         name="author"
                         onChange={handleChange}
                         value={author}
