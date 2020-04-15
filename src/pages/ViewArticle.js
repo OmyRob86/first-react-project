@@ -7,12 +7,12 @@ import ViewComments from '../components/ViewComments';
 
 
 const ViewArticle = ({ match }) => {
-    const { id } = match.params;
+    const { articleId } = match.params;
 
     const [ article, setArticle ] = useState({});
 
     useEffect(() => {
-        fetch('http://localhost:3001/api/article?id=' + id)
+        fetch('http://localhost:3001/api/article?id=' + articleId)
             .then((result) => {
                return result.json();
             })
@@ -27,7 +27,7 @@ const ViewArticle = ({ match }) => {
                 toast.error("Oups nous avons un probléme !");
                 console.log(error);
             })
-    }, [ id ]);
+    }, [ articleId ]);
 
 
     return(
@@ -40,7 +40,7 @@ const ViewArticle = ({ match }) => {
                 posté le {formatDate(article.created_at)}<br/>
                 par {article.authorFirstname} {article.authorLastname}
             </p>
-            <ViewComments article_id = {id} />
+            <ViewComments articleId = {articleId} />
         </Container>
     );
 };

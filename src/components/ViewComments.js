@@ -1,16 +1,17 @@
 import React, { useEffect, useState } from 'react';
 import { toast } from 'react-toastify';
 
-import { formatDate } from '../utils/date';
-
 import ListGroup from 'react-bootstrap/ListGroup';
 
-const ViewComments = ({ article_id }) => {
+import CreateComment from './CreateComment';
+import ViewComment from '../components/ViewComment';
+
+const ViewComments = ({ articleId }) => {
 
     const [ comments, setComments ] = useState([]);
 
     useEffect(() => {
-        fetch('http://localhost:3001/api/comments?articles_id=' + article_id)
+        fetch('http://localhost:3001/api/comments?articles_id=' + articleId)
         .then((result) => {
            return result.json();
         })
@@ -25,28 +26,43 @@ const ViewComments = ({ article_id }) => {
             toast.error("OH OH... Nous avons eu un problem !");
             console.log(error);
         })
-    }, [ article_id ]);
+    }, [ articleId ]);
+
+    const handleCreate = (comment) => {
+        const newComments = [ ...comments ];
+
+        newComments.push(comment);
+
+        setComments(newComments);
+    }
+
+    const handleDelete = (commentId) => {
+        const newComments = comments.filter((comment) => {
+            return comment.id !== commentId;
+        })
+
+        setComments(newComments);
+    }
 
     const renderedComments = comments.map((comment) => {
         return (
-            <ListGroup.Item key={comment.id}>
-                <p>
-                {comment.content}
-                </p>
-                <small className="text-muted">
-                    par {comment.authorFirstname} {comment.authorLastname}&nbsp;
-                    le {formatDate(comment.created_at)}
-                </small>
-            </ListGroup.Item>
+            <ViewComment
+            key={comment.id}
+            comment={comment}
+            onDelete={handleDelete}
+            />
         );
     });
 
     return (
-        <div>
         <ListGroup>
             {renderedComments}
+            <ListGroup.Item>
+                <CreateComment
+                articleId={articleId}
+                onCreate={handleCreate} />
+            </ListGroup.Item>
         </ListGroup>
-        </div>
     );
 };
 
