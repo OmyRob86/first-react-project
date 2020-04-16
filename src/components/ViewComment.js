@@ -1,4 +1,5 @@
 import React from 'react';
+import { useCookies } from 'react-cookie';
 import { toast } from 'react-toastify';
 
 import { formatDate } from '../utils/date';
@@ -8,7 +9,9 @@ import Button from 'react-bootstrap/Button';
 import { FaAllergies } from 'react-icons/fa';
 
 const ViewComment = ({ comment, onDelete }) => {
-    const { id, content, authorFirstname, authorLastname, created_at } = comment;
+    const { id, content, authorId, authorFirstname, authorLastname, created_at } = comment;
+
+    const [ cookies, setCookie ] = useCookies();
 
     const handleClick = () => {
 
@@ -49,15 +52,24 @@ const ViewComment = ({ comment, onDelete }) => {
         console.log("Hola Corona :D ");
     }
 
-    return (
-        <ListGroup.Item>
-            <p>
+    const renderTrashButton = () => {
+        const user = cookies.user || {};
+        if (user.id === authorId) {
+            return (
                 <Button
                     variant="outline-danger"
                     onClick={handleClick}
                 >
                     <FaAllergies />
                 </Button>
+            )
+        }
+    };
+
+    return (
+        <ListGroup.Item>
+            <p>
+                {renderTrashButton()}
                 &nbsp;{content}
             </p>
             <small className="text-muted">

@@ -7,7 +7,7 @@ import Form          from 'react-bootstrap/Form';
 import Button        from 'react-bootstrap/Button';
 
 
-const Signin = () => {
+const Signin = ({ history }) => {
     const [ email,     setEmail     ] = useState ("");
     const [ password,  setPassword  ] = useState ("");
     const [ cookies, setCookie ] = useCookies("userToken");
@@ -47,7 +47,8 @@ const Signin = () => {
                 console.log(infos);
                 setCookie("userToken", infos.userToken);
                 setCookie("user", infos.user);
-                toast.success("Todo bien amigo :D");
+                
+                history.push('/');
             } else {
                 toast.error(
                     <div>

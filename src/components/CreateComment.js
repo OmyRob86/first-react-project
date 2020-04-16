@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useCookies } from 'react-cookie';
 import        { toast }    from 'react-toastify';
 
 
@@ -9,7 +10,8 @@ import Button    from 'react-bootstrap/Button';
 const CreateComment = ({ articleId, onCreate }) => {
     
     const [ content,   setContent   ] = useState("");
-    const [ author,    setAuthor    ] = useState("");
+
+    const [ cookies,   setCookie    ] = useCookies();
 
     const handleSubmit = (event) => {
         event.preventDefault();
@@ -22,7 +24,7 @@ const CreateComment = ({ articleId, onCreate }) => {
             },
             body: JSON.stringify({
                 content,
-                author,
+                author: cookies.user.id,
                 articleId,
             }),
         })
@@ -36,13 +38,12 @@ const CreateComment = ({ articleId, onCreate }) => {
                     content,
                     articleId,
                     created_at: new Date(),
-                    authorFirstname: "Omy",
-                    authorLastname: "Quevedo"
+                    authorId: cookies.user.id,
+                    authorFirstname: cookies.user.firstname,
+                    authorLastname: cookies.user.lastname,
                 });
 
                 setContent("");
-                setAuthor("");
-
             } else {
                 toast.error(
                     <div>
@@ -64,9 +65,6 @@ const CreateComment = ({ articleId, onCreate }) => {
             case "content":
                 setContent(event.target.value);
                 break;
-            case "author":
-                setAuthor(event.target.value);
-                break;
             // no default
         }
     }
@@ -80,15 +78,6 @@ const CreateComment = ({ articleId, onCreate }) => {
                     name="content"
                     onChange={handleChange}
                     value={content}
-                />
-            </Form.Group>
-            <Form.Group controlId="comment.author" >
-                <Form.Label>Id de l'Auteur</Form.Label>
-                <Form.Control
-                    type="number"
-                    name="author"
-                    onChange={handleChange}
-                    value={author}
                 />
             </Form.Group>
             <Button variant="primary" type="submit">Publier</Button>

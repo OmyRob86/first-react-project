@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { useCookies } from 'react-cookie';
 import { toast } from 'react-toastify';
 
 import ListGroup from 'react-bootstrap/ListGroup';
@@ -9,6 +10,8 @@ import ViewComment from '../components/ViewComment';
 const ViewComments = ({ articleId }) => {
 
     const [ comments, setComments ] = useState([]);
+    
+    const [ cookies,  setCookie   ] = useCookies();   
 
     useEffect(() => {
         fetch('http://localhost:3001/api/comments?articles_id=' + articleId)
@@ -54,14 +57,23 @@ const ViewComments = ({ articleId }) => {
         );
     });
 
+    const renderCreateComment = () => {
+        if (cookies.userToken) {
+            return (
+                <ListGroup.Item>
+                    <CreateComment
+                        articleId={articleId}
+                        onCreate={handleCreate}
+                    />
+                </ListGroup.Item>
+            )
+        }
+    }
+
     return (
         <ListGroup>
             {renderedComments}
-            <ListGroup.Item>
-                <CreateComment
-                articleId={articleId}
-                onCreate={handleCreate} />
-            </ListGroup.Item>
+            {renderCreateComment()}
         </ListGroup>
     );
 };
